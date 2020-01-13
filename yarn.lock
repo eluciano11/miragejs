@@ -2084,7 +2084,7 @@ extsprintf@^1.2.0:
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
 
-fake-xml-http-request@^2.1.1:
+fake-xml-http-request@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/fake-xml-http-request/-/fake-xml-http-request-2.1.1.tgz#279fdac235840d7a4dff77d98ec44bce9fc690a6"
   integrity sha512-Kn2WYYS6cDBS5jq/voOfSGCA0TafOYAUPbEp8mUVpD/DVV5bQIDjlq+MLLvNUokkbTpjBVlLDaM5PnX+PwZMlw==
@@ -4174,12 +4174,11 @@ prelude-ls@~1.1.2:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
   integrity sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=
 
-pretender@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/pretender/-/pretender-3.1.0.tgz#d8d7cc8502a9dbda82346ea399b9c63e7012f584"
-  integrity sha512-BxCsLXzbD7LsHBF7t8phgDa9EBWxJEYR8YqvYgrwri/YHnm9r6EiDThqHumW5FdxHlk4F10/xT2rv24C929r1Q==
+pretender@FLGMwt/pretender:
+  version "3.0.2"
+  resolved "https://codeload.github.com/FLGMwt/pretender/tar.gz/49fdd8aac2dc347f244c805a9a69fb4743473029"
   dependencies:
-    fake-xml-http-request "^2.1.1"
+    fake-xml-http-request "^2.0.0"
     route-recognizer "^0.3.3"
     whatwg-fetch "^3.0.0"
 
