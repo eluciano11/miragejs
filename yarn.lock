@@ -4174,9 +4174,9 @@ prelude-ls@~1.1.2:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
   integrity sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=
 
-pretender@FLGMwt/pretender:
+pretender@eluciano11/pretender:
   version "3.0.2"
-  resolved "https://codeload.github.com/FLGMwt/pretender/tar.gz/49fdd8aac2dc347f244c805a9a69fb4743473029"
+  resolved "https://codeload.github.com/eluciano11/pretender/tar.gz/77447ed3d6d9cf36b4020da2773b8ca42cb1f55c"
   dependencies:
     fake-xml-http-request "^2.0.0"
     route-recognizer "^0.3.3"
