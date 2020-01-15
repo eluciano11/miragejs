@@ -4176,7 +4176,7 @@ prelude-ls@~1.1.2:
 
 pretender@eluciano11/pretender:
   version "3.0.2"
-  resolved "https://codeload.github.com/eluciano11/pretender/tar.gz/77447ed3d6d9cf36b4020da2773b8ca42cb1f55c"
+  resolved "https://codeload.github.com/eluciano11/pretender/tar.gz/37554cade815c6b8553444251db2c616f514959e"
   dependencies:
     fake-xml-http-request "^2.0.0"
     route-recognizer "^0.3.3"

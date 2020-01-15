@@ -7859,6 +7859,7 @@
       FakeRequest.prototype.constructor = FakeRequest;
       // extend
       FakeRequest.prototype.send = function send() {
+          this.sendArguments = arguments;
           if (!ctx.pretender.running) {
               throw new Error('You shut down a Pretender instance while there was a pending request. ' +
                   'That request just tried to complete. Check to see if you accidentally shut down ' +
@@ -7866,12 +7867,20 @@
           }
           FakeXMLHttpRequest.prototype.send.apply(this, arguments);
           if (ctx.pretender.checkPassthrough(this)) {
-              var xhr = createPassthrough(this);
-              xhr.send.apply(xhr, arguments);
+              this.passthrough();
           }
           else {
               ctx.pretender.handleRequest(this);
           }
+      };
+      FakeRequest.prototype.passthrough = function passthrough() {
+          if (!this.sendArguments) {
+              throw new Error('You attempted to passthrough a FakeRequest that was never sent. ' +
+                  'Call `.send()` on the original request first');
+          }
+          var xhr = createPassthrough(this);
+          xhr.send.apply(xhr, this.sendArguments);
+          return xhr;
       };
       function createPassthrough(fakeXHR) {
           // event types to handle on the xhr
@@ -7879,7 +7888,7 @@
           // event types to handle on the xhr.upload
           var uploadEvents = [];
           // properties to copy from the native xhr to fake xhr
-          var lifecycleProps = ['readyState', 'responseText', 'responseXML', 'responseURL', 'status', 'statusText'];
+          var lifecycleProps = ['readyState', 'responseText', 'response', 'responseXML', 'responseURL', 'status', 'statusText'];
           var xhr = fakeXHR._passthroughRequest = new ctx.pretender._nativeXMLHttpRequest();
           xhr.open(fakeXHR.method, fakeXHR.url, fakeXHR.async, fakeXHR.username, fakeXHR.password);
           if (fakeXHR.responseType === 'arraybuffer') {
@@ -7976,9 +7985,21 @@
   function scheduleProgressEvent(request, startTime, totalTime) {
       setTimeout(function () {
           if (!request.aborted && !request.status) {
-              var ellapsedTime = new Date().getTime() - startTime.getTime();
-              request.upload._progress(true, ellapsedTime, totalTime);
-              request._progress(true, ellapsedTime, totalTime);
+              var elapsedTime = new Date().getTime() - startTime.getTime();
+              var progressTotal;
+              var body = request.requestBody;
+              if (!body) {
+                  progressTotal = 0;
+              }
+              else {
+                  // Support Blob, BufferSource, USVString, ArrayBufferView
+                  progressTotal = body.byteLength || body.size || body.length || 0;
+              }
+              var progressTransmitted = totalTime <= 0 ? 0 : (elapsedTime / totalTime) * progressTotal;
+              // ProgressEvent expects loaded, total
+              // https://xhr.spec.whatwg.org/#interface-progressevent
+              request.upload._progress(true, progressTransmitted, progressTotal);
+              request._progress(true, progressTransmitted, progressTotal);
               scheduleProgressEvent(request, startTime, totalTime);
           }
       }, 50);
